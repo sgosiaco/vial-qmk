@@ -3,24 +3,33 @@
 
 #pragma once
 
+/* sea picro */
+// #define RP2040_FLASH_GD25Q64CS
+// #define RP2040_FLASH_W25X10CL
+//  mine comes with W25Q128 so default W25Q080 driver is fine
+
+//  need to specify larger size though
+// semingly pointless to do so?
+// NEED TO RECHECK SINCE SPLIT NOW WORKING AGAIN
+// #define WEAR_LEVELING_RP2040_FLASH_SIZE (16 * 1024 * 1024) // 128Mbit or 16MByte
 
 /* Split */
-#define SPLIT_HAND_MATRIX_GRID B5, F6
-#define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
-#define MATRIX_MASKED
+// DOESN"T WORK B?C JUMPER NOT SOLDERED
+// #define SPLIT_HAND_MATRIX_GRID GP9, GP27
+// #define SPLIT_HAND_MATRIX_GRID_LOW_IS_LEFT
+// #define MATRIX_MASKED
 
-/* Haptic hardware */
-// The Pimoroni is the likely hardware, for which these settings work
-#define DRV2605L_FB_ERM_LRA 1
-#define DRV2605L_FB_BRAKEFACTOR 3 /* 1x:0, 2x:1, 3x:2, 4x:3, 6:4, 8:5, 16:6, Disable:7 */
-#define DRV2605L_FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
-/* Please refer to your datasheet for optimal setting for your specific motor.*/
-#define DRV2605L_RATED_VOLTAGE 2
-#define DRV2605L_V_PEAK 2.8
-#define DRV2605L_V_RMS 2.0
-#define DRV2605L_F_LRA 205 /* resonance freq */
+#undef RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define SERIAL_USART_TX_PIN GP1
+#define WS2812_PIO_USE_PIO1
 
-/* Haptic waveforms */
-// Two mild waveforms
-#define DRV2605L_GREETING DRV2605L_EFFECT_750_MS_ALERT_100
-#define DRV2605L_DEFAULT_MODE DRV2605L_EFFECT_SHARP_TICK_3_60
+#undef SPLIT_USB_DETECT
+#define USB_VBUS_PIN GP19
+
+// EE_HANDS SEEMINGLY POINTLESS WITH VBUS
+// USE MASTER_RIGHT INSTEAD FOR ONLY RIGHT SIDE
+// #define EE_HANDS
+
+// ONLY FLASH RIGHT SIDE WITH THIS
+// SINCE DEFAULT MASTER_LEFT, NO NEED FOR LEFT SIDE
+// #define MASTER_RIGHT
